@@ -20,4 +20,10 @@ public class CategoriaDAO {
     public void atualizar(Categoria categoria) {
         this.entityManager.merge(categoria);
     }
+
+    public void deletar(Categoria categoria) {
+        // Forçando a entidade para o estado de managed
+        categoria = entityManager.merge(categoria);
+        this.entityManager.remove(categoria);
+    }
 }
