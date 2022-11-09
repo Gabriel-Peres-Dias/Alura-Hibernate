@@ -16,4 +16,8 @@ public class CategoriaDAO {
     public void salvar(Categoria categoria) {
         this.entityManager.persist(categoria);
     }
+
+    public void atualizar(Categoria categoria) {
+        this.entityManager.merge(categoria);
+    }
 }
