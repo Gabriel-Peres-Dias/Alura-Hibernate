@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class CadastroDeProduto {
+public class CadastroDeProdutoTeste {
     public static void main(String[] args) {
         cadastrarPorduto();
 

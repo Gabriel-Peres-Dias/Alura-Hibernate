@@ -14,13 +14,14 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate data = LocalDate.now();
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
     @ManyToOne
     private Cliente cliente;
 
     //nome do atributo do outro lado do relacionamento
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     public List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido(Cliente cliente) {
