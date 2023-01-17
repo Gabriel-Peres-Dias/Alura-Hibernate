@@ -33,8 +33,11 @@ public class CadastroDePedidoTeste {
         PedidoDAO pedidoDao = new PedidoDAO(em);
         pedidoDao.salvarPedido(pedido);
 
-
         em.getTransaction().commit();
+
+        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
+        System.out.println("Valor Total: " + valorTotal);
+
         em.close();
     }
 
