@@ -9,6 +9,7 @@ import br.com.alura.loja.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CadastroDePedidoTeste {
     public static void main(String[] args) {
@@ -19,9 +20,12 @@ public class CadastroDePedidoTeste {
 
         ProdutoDAO produtoDAO = new ProdutoDAO(em);
         ClienteDAO clienteDAO = new ClienteDAO(em);
+        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
         Produto produto = produtoDAO.buscarPorId(1L);
         Cliente cliente = clienteDAO.buscarPorId(1L);
 
+        List<Categoria> categorias = categoriaDAO.buscarCategorias();
+        categorias.forEach(cat -> System.out.println(cat.getNome()));
 
         Pedido pedido = new Pedido(cliente);
         pedido.adicionarItem(new ItemPedido(10,pedido, produto));

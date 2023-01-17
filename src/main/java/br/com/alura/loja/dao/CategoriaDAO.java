@@ -4,6 +4,7 @@ import br.com.alura.loja.model.Categoria;
 import br.com.alura.loja.model.Produto;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class CategoriaDAO {
 
@@ -19,6 +20,11 @@ public class CategoriaDAO {
 
     public void atualizar(Categoria categoria) {
         this.entityManager.merge(categoria);
+    }
+
+    public List<Categoria> buscarCategorias() {
+        String jpql = "SELECT c FROM Categoria c";
+        return this.entityManager.createQuery(jpql, Categoria.class).getResultList();
     }
 
     public void deletar(Categoria categoria) {
