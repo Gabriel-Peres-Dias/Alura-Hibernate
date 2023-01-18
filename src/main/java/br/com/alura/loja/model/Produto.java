@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "produtos")
+//consulta que ao invés de ficar na DAO, fica na entidade
+@NamedQuery(name = "Produto.produtosPorCategoria",
+        query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
 public class Produto {
 
     @Id
@@ -62,6 +65,7 @@ public class Produto {
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
+
     public LocalDate getDataCadastro() {
         return dataCadastro;
     }
