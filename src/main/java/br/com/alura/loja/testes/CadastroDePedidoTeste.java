@@ -38,6 +38,13 @@ public class CadastroDePedidoTeste {
         BigDecimal valorTotal = pedidoDao.valorTotalVendido();
         System.out.println("Valor Total: " + valorTotal);
 
+        List<Object[]> relatorio = pedidoDao.relatorioDeVendas();
+        for (Object[] obj : relatorio) {
+            System.out.println(obj[0]);
+            System.out.println(obj[1]);
+            System.out.println(obj[2]);
+        }
+
         em.close();
     }
 
