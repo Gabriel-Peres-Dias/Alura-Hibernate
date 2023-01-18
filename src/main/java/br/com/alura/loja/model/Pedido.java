@@ -19,10 +19,20 @@ public class Pedido {
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
 
-    @ManyToOne
+    /*
+    por padrão, a JPA vai sempre fazer um join com a tabela de clientes(neste exemplo) sempre
+    quando a entidade principal(pedido) for carregada, por conta
+    do mapeamento do relacionamento
+    ToOne = carregado automaticamente
+    toMany = não é carregado automaticamente, apenas quando acessarmos a "lista"
+     */
+
+    // padrão do ToOne é Eager = carregamento antecipado
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     //nome do atributo do outro lado do relacionamento
+    // padrão do ToMany é lazy = carregamento tardio, só carrega quando é acessado
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     public List<ItemPedido> itens = new ArrayList<>();
 
@@ -70,5 +80,13 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
