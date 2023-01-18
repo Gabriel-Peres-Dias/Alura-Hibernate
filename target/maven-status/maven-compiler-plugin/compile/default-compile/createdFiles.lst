@@ -1,0 +1,13 @@
+br\com\alura\loja\dao\ClienteDAO.class
+br\com\alura\loja\vo\RelatorioDeVendasVo.class
+br\com\alura\loja\testes\CadastroDePedidoTeste.class
+br\com\alura\loja\model\Pedido.class
+br\com\alura\loja\model\Cliente.class
+br\com\alura\loja\model\Produto.class
+br\com\alura\loja\model\ItemPedido.class
+br\com\alura\loja\model\Categoria.class
+br\com\alura\loja\util\JPAUtil.class
+br\com\alura\loja\dao\PedidoDAO.class
+br\com\alura\loja\dao\CategoriaDAO.class
+br\com\alura\loja\testes\CadastroDeProdutoTeste.class
+br\com\alura\loja\dao\ProdutoDAO.class
