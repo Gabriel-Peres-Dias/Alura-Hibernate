@@ -6,53 +6,18 @@ import br.com.alura.loja.dao.PedidoDAO;
 import br.com.alura.loja.dao.ProdutoDAO;
 import br.com.alura.loja.model.*;
 import br.com.alura.loja.util.JPAUtil;
-import br.com.alura.loja.vo.RelatorioDeVendasVo;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.List;
 
-public class CadastroDePedidoTeste {
+
+public class PerformaceConsultasTeste {
     public static void main(String[] args) {
         popularBancoDeDados();
         EntityManager em = JPAUtil.getEntityManager();
+        Pedido pedido = em.find(Pedido.class,1l);
+        System.out.println(pedido.getItens().size());
 
-        ProdutoDAO produtoDAO = new ProdutoDAO(em);
-        ClienteDAO clienteDAO = new ClienteDAO(em);
-        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
-
-        Produto produto = produtoDAO.buscarPorId(1L);
-        Produto produto2 = produtoDAO.buscarPorId(2L);
-        Produto produto3 = produtoDAO.buscarPorId(3L);
-
-        Cliente cliente = clienteDAO.buscarPorId(1L);
-
-        em.getTransaction().begin();
-
-        List<Categoria> categorias = categoriaDAO.buscarCategorias();
-        categorias.forEach(cat -> System.out.println(cat.getNome()));
-
-        Pedido pedido = new Pedido(cliente);
-        pedido.adicionarItem(new ItemPedido(10,pedido, produto));
-        pedido.adicionarItem(new ItemPedido(40,pedido, produto2));
-
-        Pedido pedido2 = new Pedido(cliente);
-        pedido.adicionarItem(new ItemPedido(5, pedido, produto3));
-
-        PedidoDAO pedidoDao = new PedidoDAO(em);
-
-        pedidoDao.salvarPedido(pedido);
-        pedidoDao.salvarPedido(pedido2);
-
-        em.getTransaction().commit();
-
-        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
-        System.out.println("Valor Total: " + valorTotal);
-
-        List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
-        relatorio.forEach(System.out::println);
-
-        em.close();
     }
 
     private static void popularBancoDeDados() {
@@ -73,6 +38,18 @@ public class CadastroDePedidoTeste {
         Produto placaDeVideo = new Produto("RTX 3060 Colorful igame","Placa de vídeo para fullHD",new BigDecimal(2200), informatica);
 
         Cliente cliente = new Cliente("Gabriel Peres", "12345678911");
+
+        Pedido pedido = new Pedido(cliente);
+        pedido.adicionarItem(new ItemPedido(10,pedido, celular));
+        pedido.adicionarItem(new ItemPedido(40,pedido, videogame));
+
+        Pedido pedido2 = new Pedido(cliente);
+        pedido.adicionarItem(new ItemPedido(5, pedido, placaDeVideo));
+
+        PedidoDAO pedidoDao = new PedidoDAO(em);
+
+        pedidoDao.salvarPedido(pedido);
+        pedidoDao.salvarPedido(pedido2);
 
         categoriaDAO.salvar(celulares);
         categoriaDAO.salvar(videogames);
