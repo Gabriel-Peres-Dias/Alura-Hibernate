@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Table(name = "produtos")
 //consulta que ao invés de ficar na DAO, fica na entidade
 @NamedQuery(name = "Produto.produtosPorCategoria",
-        query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
+        query = "SELECT p FROM Produto p WHERE p.categoria.id.nome = :nome")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Produto {
 
