@@ -11,7 +11,7 @@ public class PedidoDAO {
 
     private EntityManager entityManager;
 
-    public PedidoDAO (EntityManager entityManager) {
+    public PedidoDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -25,7 +25,6 @@ public class PedidoDAO {
     }
 
 
-
     public List<RelatorioDeVendasVo> relatorioDeVendas() {
         String jpql = "SELECT new br.com.alura.loja.vo.RelatorioDeVendasVo (" +
                 "produto.nome, " +
@@ -37,6 +36,12 @@ public class PedidoDAO {
                 "GROUP BY produto.nome";
 
         return entityManager.createQuery(jpql, RelatorioDeVendasVo.class).getResultList();
+    }
+
+    //query planejada para evitar lazyException. É como se essa consulta fosse EAGER
+    public Pedido buscarPedidoComCliente(Long id) {
+        return entityManager.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id"
+                , Pedido.class).setParameter("id", id).getSingleResult();
     }
 
 }
