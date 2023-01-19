@@ -9,13 +9,13 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String cpf;
+    // A anotação pede que os atributos da classe sejam imbutidos na entidade
+    @Embedded
+    private DadosPessoais dadosPessoais;
+
 
     public Cliente(String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+        this.dadosPessoais = new DadosPessoais(nome, cpf);
     }
 
     public Cliente() {
@@ -30,19 +30,8 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public DadosPessoais getDadosPessoais() {
+        return dadosPessoais;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 }

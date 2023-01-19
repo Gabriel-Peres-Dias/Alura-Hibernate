@@ -19,7 +19,7 @@ public class PerformaceConsultasTeste {
         PedidoDAO dao = new PedidoDAO(em);
         Pedido pedidoDao = dao.buscarPedidoComCliente(1L);
         em.close();
-        System.out.println(pedido.getCliente().getNome());
+        System.out.println(pedido.getCliente().getDadosPessoais().getNome());
 
     }
 
