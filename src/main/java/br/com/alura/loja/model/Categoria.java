@@ -10,7 +10,7 @@ public class Categoria {
     private CategoriaId id;
 
     public Categoria(String nome) {
-        this.id = new CategoriaId(nome, "xpt");
+        this.id = new CategoriaId(nome, "xpto");
     }
 
     public Categoria() {
