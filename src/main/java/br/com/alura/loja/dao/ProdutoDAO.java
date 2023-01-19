@@ -3,7 +3,12 @@ package br.com.alura.loja.dao;
 import br.com.alura.loja.model.Produto;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProdutoDAO {
@@ -45,6 +50,25 @@ public class ProdutoDAO {
         return entityManager.createQuery(jpql, BigDecimal.class)
                 .setParameter("nome", nome)
                 .getSingleResult();
+    }
+
+    public List<Produto> buscarPorParametrosComCriteria (String nome, BigDecimal preco, LocalDate dataCadastro) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> query =  criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> from = query.from(Produto.class);
+
+        Predicate filtros = criteriaBuilder.and();
+        if (nome != null && !nome.trim().isEmpty()) {
+            filtros = criteriaBuilder.and(filtros, criteriaBuilder.equal(from.get("nome"), nome));
+        }
+        if (preco != null) {
+            filtros = criteriaBuilder.and(filtros, criteriaBuilder.equal(from.get("preco"), preco));
+        }
+        if (dataCadastro != null) {
+            filtros = criteriaBuilder.and(filtros, criteriaBuilder.equal(from.get("dataCadastro"), dataCadastro));
+        }
+        query.where(filtros);
+        return entityManager.createQuery(query).getResultList();
     }
 
 }
