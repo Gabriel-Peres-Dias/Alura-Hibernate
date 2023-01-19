@@ -9,6 +9,7 @@ import java.time.LocalDate;
 //consulta que ao invés de ficar na DAO, fica na entidade
 @NamedQuery(name = "Produto.produtosPorCategoria",
         query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Produto {
 
     @Id
@@ -19,6 +20,14 @@ public class Produto {
     private BigDecimal preco;
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro = LocalDate.now();
+
+    /*
+    temos duas principais estratégias com  mapeamento de heranças:
+    1: SingleTable -> Criar uma tabela com todos os atributos juntos. Vantagem em performace  pq fica
+    tudo junto. Usamos o @Inheritance e o Inheritance.SINGLE_TABLE na Entidade mãe
+    2: Joined -> Uma tabela por classe. Desvantagem é que se um select na entidade filha vai ter
+    um join com a entidade mae. Usamos o @Inheritance e o Inheritance.JOINED na Entidade mãe
+     */
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
